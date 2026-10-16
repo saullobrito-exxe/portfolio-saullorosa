@@ -114,7 +114,7 @@ app.post('/api/portfolio', async (req, res) => {
     // Auto-sync with GitHub repositories in background
     try {
       const { exec } = await import('child_process');
-      exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main', (err, stdout, stderr) => {
+      exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main --force', (err, stdout, stderr) => {
         if (err) {
           console.log('[Git Auto-Sync] Notice:', stderr || err.message);
         } else {

@@ -95,7 +95,7 @@ function portfolioApiPlugin(): Plugin {
                 // Auto-sync with GitHub repositories in background
                 try {
                   const { exec } = await import('child_process');
-                  exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main', (err, stdout, stderr) => {
+                  exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main --force', (err, stdout, stderr) => {
                     if (err) {
                       console.log('[Git Auto-Sync] Notice:', stderr || err.message);
                     } else {
@@ -118,6 +118,31 @@ function portfolioApiPlugin(): Plugin {
         }
         next();
       });
+
+      // Background watcher: checks for changes every 10 seconds and automatically syncs to GitHub
+      let isAutoSyncing = false;
+      setInterval(async () => {
+        if (isAutoSyncing) return;
+        try {
+          const { exec } = await import('child_process');
+          exec('git status --porcelain', (err, stdout) => {
+            if (!err && stdout && stdout.trim()) {
+              isAutoSyncing = true;
+              console.log('[Git Auto-Watcher] Detected changes, pushing to GitHub...');
+              exec('git add . && git commit -m "auto: sync portfolio updates" && git push origin main --force', (pushErr) => {
+                isAutoSyncing = false;
+                if (!pushErr) {
+                  console.log('[Git Auto-Watcher] Changes successfully pushed to GitHub!');
+                } else {
+                  console.log('[Git Auto-Watcher] Push notice:', pushErr.message);
+                }
+              });
+            }
+          });
+        } catch (_) {
+          isAutoSyncing = false;
+        }
+      }, 10000);
     },
   };
 }
