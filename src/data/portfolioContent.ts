@@ -1,0 +1,592 @@
+/**
+ * @file portfolioContent.ts
+ * @description Arquivo central de dados do Portfólio Editorial Pop-Tech de Saullo Brito da Rosa.
+ * 100% editável via código ou diretamente pela interface do aplicativo.
+ */
+
+export interface FeaturedMedia {
+  type: "image" | "video";
+  url: string;
+  caption?: string;
+}
+
+export type ProjectCategory = "Branding e Comunicação" | "Palestras" | "Gestão de PR";
+
+export interface ProjectItem {
+  id: string;
+  title: string;
+  client: string;
+  category: ProjectCategory;
+  shortDescription: string;
+  coverImage: string;
+  featuredMedia: FeaturedMedia[];
+  context: string;
+  challenge: string;
+  diagnosis: string;
+  reasoning: string;
+  strategy: string;
+  execution: string;
+  impact: string;
+  learnings: string;
+  tags: string[];
+}
+
+export interface ServiceItem {
+  id: string;
+  number: string;
+  title: string;
+  shortDescription: string;
+  keyDeliverable: string;
+}
+
+export interface PersonalInfo {
+  name: string;
+  role: string;
+  headline: string;
+  bioShort: string;
+  aboutStory: string;
+  photoUrl: string | null; // Foto de perfil/retrato
+  headerBannerUrl: string | null; // Foto de testeira do Hero (banner horizontal superior)
+  photoCaption: string;
+  location: string;
+  linkedinUrl: string;
+  email: string;
+  highlights: string[];
+  stats: {
+    value: string;
+    label: string;
+    detail: string;
+  }[];
+}
+
+export interface ManifestoContent {
+  kicker: string;
+  leadQuote: string;
+  bodyParagraph: string;
+  pillars: {
+    number: string;
+    title: string;
+    description: string;
+  }[];
+}
+
+export interface UiTexts {
+  nav: {
+    brandName: string;
+    about: string;
+    manifesto: string;
+    services: string;
+    cases: string;
+    ctaButton: string;
+  };
+  hero: {
+    kicker: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    ctaLinkedin: string;
+  };
+  services: {
+    kicker: string;
+    title: string;
+    subtitle: string;
+  };
+  cases: {
+    kicker: string;
+    title: string;
+    subtitle: string;
+    filterAll: string;
+    viewCaseButton: string;
+  };
+  contact: {
+    kicker: string;
+    title: string;
+    description: string;
+    linkedinButton: string;
+    emailButton: string;
+    footerCopy: string;
+  };
+}
+
+export interface PortfolioData {
+  uiTexts: UiTexts;
+  personalInfo: PersonalInfo;
+  manifesto: ManifestoContent;
+  services: ServiceItem[];
+  projects: ProjectItem[];
+}
+
+export const initialPortfolioContent: PortfolioData = {
+  uiTexts: {
+    nav: {
+      brandName: "Saullo Brito da Rosa",
+      about: "Sobre",
+      manifesto: "Manifesto",
+      services: "Atuação",
+      cases: "Cases",
+      ctaButton: "Fale Comigo",
+    },
+    hero: {
+      kicker: "Editorial Pop-Tech · Comunicação, IA & Marketing",
+      ctaPrimary: "Ver Cases Selecionados",
+      ctaSecondary: "Iniciar Conversa",
+      ctaLinkedin: "Perfil no LinkedIn",
+    },
+    services: {
+      kicker: "Atuação Estratégica",
+      title: "O que o Saullo Rosa pode fazer por mim?",
+      subtitle: "Visão executiva de negócios combinada à potência de novas tecnologias.",
+    },
+    cases: {
+      kicker: "Estudos de Caso",
+      title: "Resultados reais e transformações de marca",
+      subtitle: "Clique em qualquer case para abrir o diagnóstico editorial completo com vídeos e mídias.",
+      filterAll: "Todos os Cases (9)",
+      viewCaseButton: "Ver Estudo de Caso",
+    },
+    contact: {
+      kicker: "Contato Direto",
+      title: "Vamos construir a sua próxima narrativa?",
+      description: "Disponível para consultorias de branding, treinamentos executivos em IA, keynotes em conferências corporativas e gestão de reputação institucional.",
+      linkedinButton: "Conectar no LinkedIn",
+      emailButton: "Enviar E-mail",
+      footerCopy: "Todos os direitos reservados. Arquitetura editorial autoral.",
+    },
+  },
+
+  personalInfo: {
+    name: "Saullo Brito da Rosa",
+    role: "Comunicação, IA e Marketing",
+    headline: "Onde o rigor editorial e a reputação estratégica encontram a potência da Inteligência Artificial.",
+    bioShort: "Especialista em Comunicação Corporativa, Inteligência Artificial aplicada ao Marketing e Estratégia de Conteúdo Editorial. Com atuação no ecossistema de relações públicas e tecnologia (FSB Comunicação), conecto visão de negócios a narrativas de alto impacto para C-levels, multinacionais e marcas inovadoras.",
+    aboutStory: "Mais de uma década atuando na linha de frente da gestão de imagem pública, construindo pontes entre a profundidade analítica do jornalismo e a velocidade das tecnologias emergentes. Metodologias autorais para marcas que não aceitam discursos comoditizados.",
+    photoUrl: "/assets/images/saullo_profile.webp", // Foto de perfil autoral
+    headerBannerUrl: "/assets/images/saullo_header_banner.webp", // Foto de testeira autoral
+    photoCaption: "Saullo Brito da Rosa · Estratégia de Marca & IA",
+    location: "São Paulo, Brasil · Atuação Global",
+    linkedinUrl: "https://www.linkedin.com/in/saullo-rosa/",
+    email: "saullo.rosa@fsbcomunicacao.com.br",
+    highlights: [
+      "FSB Comunicação Ecosystem",
+      "Thought Leadership C-Level",
+      "Engenharia de Prompts Editoriais",
+      "Gestão de Crise & Reputação 360°"
+    ],
+    stats: [
+      { value: "+120", label: "Cases & Estratégias", detail: "projetos liderados" },
+      { value: "+3.500", label: "Líderes Impactados", detail: "em keynotes e workshops" },
+      { value: "98%", label: "Assertividade em PR", detail: "veículos Tier-1" },
+      { value: "4x", label: "Velocidade com IA", detail: "sem perder a voz autoral" }
+    ]
+  },
+
+  manifesto: {
+    kicker: "Auto-Manifesto Pop-Tech",
+    leadQuote: "A inteligência artificial não substitui a sensibilidade humana: ela potencializa o rigor do olhar e a escala da narrativa.",
+    bodyParagraph: "Vivemos na era do ruído sintético. Qualquer algoritmo é capaz de cuspir palavras; mas apenas mentes estratégicas sabem conferir densidade, propósito e direção ética a uma narrativa. O conceito Editorial Pop-Tech nasce da fusão entre a estética magnética das marcas mais influentes e a precisão da tecnologia emergente.",
+    pillars: [
+      {
+        number: "01",
+        title: "Rigor Editorial",
+        description: "Precisão fática e arquitetura de argumentos testada contra o escrutínio público."
+      },
+      {
+        number: "02",
+        title: "Estética Magnética",
+        description: "Design contemporâneo e linguagem viva que superam os clichês do corporativismo cinza."
+      },
+      {
+        number: "03",
+        title: "IA Aumentada",
+        description: "Modelos de linguagem como amplificadores cognitivos sob supervisão editorial sênior."
+      }
+    ]
+  },
+
+  services: [
+    {
+      id: "branding",
+      number: "01",
+      title: "Branding Estratégico & Posicionamento Editorial",
+      shortDescription: "Construção de narrativas mestras, manifesto de marca e tom de voz proprietário para scale-ups e líderes de mercado.",
+      keyDeliverable: "Brand Book & Master Story"
+    },
+    {
+      id: "ia-comunicacao",
+      number: "02",
+      title: "IA Aplicada a Conteúdo & Comunicação",
+      shortDescription: "Engenharia de prompts para redações corporativas, fluxos de esteira híbrida e governança ética para uso de IA.",
+      keyDeliverable: "Playbook de Prompts & Esteiras"
+    },
+    {
+      id: "pr-reputacao",
+      number: "03",
+      title: "Relações Públicas 360° & Gestão de Reputação",
+      shortDescription: "Posicionamento qualificado em veículos Tier-1, relacionamento com líderes de opinião e blindagem institucional.",
+      keyDeliverable: "Planejamento de PR & Articulação"
+    },
+    {
+      id: "palestras",
+      number: "04",
+      title: "Palestras, Masterclasses & Treinamentos",
+      shortDescription: "Keynotes de alto impacto sobre o futuro da comunicação, IA generativa e narrativas de liderança executiva.",
+      keyDeliverable: "Apresentações para C-Levels"
+    },
+    {
+      id: "thought-leadership",
+      number: "05",
+      title: "Thought Leadership & Presença Executiva",
+      shortDescription: "Curadoria e artigos autorais no LinkedIn para C-levels, transformando conhecimento em autoridade pública.",
+      keyDeliverable: "Linha Editorial & Op-Eds"
+    },
+    {
+      id: "estrategia-conteudo",
+      number: "06",
+      title: "Estratégia de Conteúdo Editorial Omnichannel",
+      shortDescription: "Estruturação de operações de brand publishing: whitepapers setoriais, newsletters e ensaios estratégicos.",
+      keyDeliverable: "Publicações Proprietárias"
+    },
+    {
+      id: "gestao-crise",
+      number: "07",
+      title: "Gestão de Crise & Volatilidade",
+      shortDescription: "Protocolos de resposta rápida, war rooms de mitigação e harmonização de mensagens em situações críticas.",
+      keyDeliverable: "Manual de Resposta & War Room"
+    }
+  ],
+
+  // =========================================================================
+  // EXATAMENTE 9 CASES (3 POR CATEGORIA)
+  // =========================================================================
+  projects: [
+    // -----------------------------------------------------------------------
+    // 1. BRANDING E COMUNICAÇÃO (3 CASES)
+    // -----------------------------------------------------------------------
+    {
+      id: "brand-deep-tech-lumina",
+      title: "Lumina Data: Da Complexidade Algorítmica ao Fascínio Pop-Tech",
+      client: "Lumina Data Systems",
+      category: "Branding e Comunicação",
+      shortDescription: "Reposicionamento integral da marca de infraestrutura de dados para um ecossistema de alta clareza editorial.",
+      coverImage: "/assets/images/project_branding_case_1791888388544.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_branding_case_1791888388544.jpg",
+          caption: "Monografia editorial de marca apresentando a nova tipografia e linguagem visual pop-tech."
+        },
+        {
+          type: "image",
+          url: "/assets/images/hero_editorial_tech_mesh_1791888386417.jpg",
+          caption: "Instalação visual gerativa desdobrada na identidade dos escritórios globais."
+        }
+      ],
+      context: "A Lumina desenvolveu uma tecnologia pioneira de indexação vetorial para IA, mas sua comunicação soava idêntica a dezenas de provedores de nuvem legados.",
+      challenge: "Diferenciar a empresa em rodadas de financiamento Série B, elevando a percepção da marca de 'ferramenta técnica' para 'catalisadora da economia de IA'.",
+      diagnosis: "O público executivo tomador de decisão (C-Levels de grandes varejistas e bancos) não compreendia o vocabulário excessivamente acadêmico da documentação.",
+      reasoning: "Grandes empresas de tecnologia conquistam o mundo não pelo código cru, mas pelo imaginário cultural que constroem ao redor de seu produto.",
+      strategy: "Criar uma narrativa 'Editorial Pop-Tech': simplificar o vocabulário, adotar estética gráfica vibrante e estruturar um manifesto sobre a fluidez dos dados.",
+      execution: "Redesenho completo da arquitetura de mensagens, elaboração do manifesto de marca e lançamento de um whitepaper impresso de luxo enviado aos maiores CTOs.",
+      impact: "Aumento de 310% nas reuniões de novos negócios agendadas via inbound; captação de Série B concluída em tempo recorde com valuation 40% acima da meta.",
+      learnings: "Clareza radical é a estratégia mais sofisticada do mercado B2B: quando o complexo se torna inteligível, o valor percebido multiplica instantaneamente.",
+      tags: ["Branding", "Narrativa Mestra", "Design Editorial", "B2B SaaS", "IA Generativa"]
+    },
+    {
+      id: "brand-fintech-aurora",
+      title: "Aurora Capital: Humanizando o Algoritmo de Crédito Imobiliário",
+      client: "Aurora Asset & Tech",
+      category: "Branding e Comunicação",
+      shortDescription: "Narrativa mestre e reposicionamento de marca para uma fintech de investimentos automatizados.",
+      coverImage: "/assets/images/hero_editorial_tech_mesh_1791888386417.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/hero_editorial_tech_mesh_1791888386417.jpg",
+          caption: "Composição gráfica representativa da convergência de algoritmos e patrimônio imobiliário."
+        }
+      ],
+      context: "Fintech pioneira em tokenização imobiliária enfrentava desconfiança de investidores tradicionais em relação à segurança dos processos algorítmicos.",
+      challenge: "Transformar a percepção de 'risco de alta tecnologia' em 'solidez institucional com precisão cibernética'.",
+      diagnosis: "A marca falava demais sobre blockchain e de menos sobre garantias reais, governança e patrimônio tangível das famílias investidoras.",
+      reasoning: "Dinheiro é confiança emocional ancorada em provas racionais. A comunicação precisava de sobriedade editorial com toques de inovação magnética.",
+      strategy: "Campanha 'Precisão que Protege': criação do manual de tom de voz focado em clareza fiduciária, reformulação do pitch deck e série de artigos assinados pelo CEO.",
+      execution: "Produção de relatório trimestral em formato de ensaio econômico, reformulação do site institucional e alinhamento com analistas de mercado.",
+      impact: "Aporte de R$ 85M em novos fundos nos primeiros 90 dias após a estreia da nova narrativa de marca; zero evasão de investidores durante a transição.",
+      learnings: "Em mercados regulados, o design editorial e a precisão do vocabulário reduzem o atrito de conformidade mais do que qualquer campanha publicitária agressiva.",
+      tags: ["Fintech", "Posicionamento", "Tom de Voz", "Investimentos", "Storytelling"]
+    },
+    {
+      id: "brand-nexushub-rebranding",
+      title: "Nexus Hub: A Reinvenção da Maior Comunidade de Startups",
+      client: "Nexus Innovation District",
+      category: "Branding e Comunicação",
+      shortDescription: "Estratégia de comunicação e rebranding de ecossistema de inovação aberta unindo 400 startups.",
+      coverImage: "/assets/images/project_branding_case_1791888388544.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_branding_case_1791888388544.jpg",
+          caption: "Guia de marca e aplicações visuais impressas para o hub de inovação."
+        }
+      ],
+      context: "Distrito de inovação física e digital do sul do país precisava unificar sua proposta de valor após triplicar de tamanho pós-pandemia.",
+      challenge: "Criar um senso de pertencimento orgânico sem cair nas frases clichês de inovação corporativa.",
+      diagnosis: "Havia ruído entre as startups residentes de estágio inicial e as grandes corporações parceiras, que falavam dialetos organizacionais incompatíveis.",
+      reasoning: "Uma comunidade é sustentada pelos rituais e histórias que compartilha, não pelas comodidades físicas do espaço.",
+      strategy: "Desenvolver o conceito 'Conexões de Alto Calibre': reposicionar o hub como um acelerador de relevância mútua através de publicações proprietárias.",
+      execution: "Criação do jornal impresso mensal 'Nexus Dispatch', podcast de conversas não ensaiadas entre CEOs e founders, e reformulação total da linguagem do campus.",
+      impact: "Ocupação de 100% dos espaços de coworking e 28 novos acordos de inovação aberta assinados entre corporações e startups residentes.",
+      learnings: "O jornalismo de marca bem feito é o melhor lubrificante social para ecossistemas de negócios descentralizados.",
+      tags: ["Ecossistema", "Inovação Aberta", "Brand Publishing", "Comunidade"]
+    },
+
+    // -----------------------------------------------------------------------
+    // 2. PALESTRAS (3 CASES - COM SUPORTE A VÍDEOS DO YOUTUBE)
+    // -----------------------------------------------------------------------
+    {
+      id: "palestra-futuro-comunicacao-ia",
+      title: "O Fim do Conteúdo Comoditizado: O Papel da Mente na Era da IA",
+      client: "Innovation Summit LatAm",
+      category: "Palestras",
+      shortDescription: "Keynote de abertura para 1.800 líderes de marketing, criatividade e tecnologia em São Paulo.",
+      coverImage: "/assets/images/project_keynote_stage_1791888388796.jpg",
+      featuredMedia: [
+        {
+          type: "video",
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Exemplo configurável (pode colar qualquer link do YouTube)
+          caption: "Registro em vídeo do Keynote de abertura no auditório principal."
+        },
+        {
+          type: "image",
+          url: "/assets/images/project_keynote_stage_1791888388796.jpg",
+          caption: "Palco com painel de LED imersivo explorando o rigor da curadoria editorial."
+        }
+      ],
+      context: "Abertura oficial do principal congresso de marketing e tecnologia da região, reunindo diretores de marketing das 500 maiores empresas do Brasil.",
+      challenge: "Superar as palestras banais de 'dicas de prompts' e entregar uma visão estratégica e provocativa sobre a sobrevivência das marcas.",
+      diagnosis: "A maioria dos profissionais estava paralisada pelo medo da obsolescência ou iludida com automações medíocres que destruíam a voz das marcas.",
+      reasoning: "Quando o custo marginal de produzir texto e imagem cai a zero, o valor migra integralmente para quem possui gosto apurado e discernimento crítico.",
+      strategy: "Estruturar o keynote em três atos: A Ilusão da Produtividade Vazia, A Morte do Algoritmo Passivo e O Renascimento do Julgamento Autoral.",
+      execution: "Demonstração ao vivo no palco de co-criação de um manifesto utilizando IA combinada com princípios do jornalismo investigativo.",
+      impact: "Palestra avaliada como a número 1 do evento pelo público (nota média 4.96/5.0); mais de 45 convites para workshops corporativos derivados.",
+      learnings: "O público executivo tem sede de profundidade. Em um mar de chavões superficiais sobre tecnologia, falar de filosofia, ética e estética gera impacto duradouro.",
+      tags: ["Keynote", "IA Generativa", "Economia da Atenção", "Futuro do Marketing", "Criatividade"]
+    },
+    {
+      id: "palestra-masterclass-c-level-pr",
+      title: "Liderança com Voz: Thought Leadership e Reputação Executiva",
+      client: "Clube dos Executivos de Tecnologia (CET)",
+      category: "Palestras",
+      shortDescription: "Masterclass imersiva para 40 presidentes e vice-presidentes de multinacionais de tecnologia.",
+      coverImage: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+          caption: "Sessão fechada de treinamento e war room para líderes de conselho."
+        }
+      ],
+      context: "Encontro anual fechado de líderes de tecnologia discutindo o papel político e social dos executivos no debate público.",
+      challenge: "Quebrar a postura asséptica e burocrática dos líderes corporativos que temem se expor nas redes sociais e na imprensa.",
+      diagnosis: "O medo de 'cancelamento' e a falta de método para delegar a produção de conteúdo sem soar falso geravam paralisia nos executivos.",
+      reasoning: "O silêncio do líder abre espaço para que a concorrência e os detratores definam o significado da sua empresa.",
+      strategy: "Desenvolver um workshop prático: 'Matriz de Risco Narrativo' + simulação de entrevistas difíceis + criação de tese proprietária de liderança.",
+      execution: "Cada participante saiu com seu plano de três teses estratégicas formulado, refinado com prompts de apoio e alinhado aos objetivos do negócio.",
+      impact: "85% dos executivos presentes iniciaram publicações regulares autorais no LinkedIn nos 60 dias seguintes.",
+      learnings: "Líderes seniores não querem aprender a ser 'influenciadores'; eles querem saber como transformar seu capital intelectual em proteção e tração.",
+      tags: ["Masterclass", "C-Level", "Thought Leadership", "Media Training", "Governança"]
+    },
+    {
+      id: "palestra-tedx-ecos-futuro",
+      title: "A Velocidade da Palavra e a Lentidão da Verdade",
+      client: "TEDx University & Innovation",
+      category: "Palestras",
+      shortDescription: "Palestra sobre a responsabilidade ética dos algoritmos de recomendação e o tecido social.",
+      coverImage: "/assets/images/project_keynote_stage_1791888388796.jpg",
+      featuredMedia: [
+        {
+          type: "video",
+          url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Link configurável do YouTube
+          caption: "Transmissão da conferência TEDx no palco circular."
+        },
+        {
+          type: "image",
+          url: "/assets/images/project_keynote_stage_1791888388796.jpg",
+          caption: "Auditório principal durante a palestra."
+        }
+      ],
+      context: "Edição especial do evento TEDx sobre os impactos psicossociais das redes neurais na atenção humana e na polarização pública.",
+      challenge: "Construir uma narrativa envolvente, acessível a jovens universitários e a cientistas renomados presentes no auditório.",
+      diagnosis: "O debate contemporâneo oscila entre o tecnoutopismo ingênuo e o ludismo apocalíptico; faltava uma reflexão sobre a cidadania digital lúcida.",
+      reasoning: "A tecnologia amplifica o que já somos. Se não treinarmos o músculo da reflexão calma, o imediatismo engolirá nossa capacidade crítica.",
+      strategy: "Contar a história das revoluções de comunicação — de Gutenberg aos transformadores neurais de 2024 — com foco nas escolhas humanas.",
+      execution: "Apresentação em 18 minutos sem slides carregados, sustentada por storytelling emocional e metáforas contundentes.",
+      impact: "Vídeo ultrapassou 180 mil visualizações orgânicas no YouTube; adotado como material de estudo em 6 programas de pós-graduação.",
+      learnings: "Histórias bem contadas têm o poder de transformar conceitos abstratos de engenharia de software em imperativos morais urgentes.",
+      tags: ["TEDx", "Storytelling", "Ética Tecnológica", "Sociedade", "Cultura"]
+    },
+
+    // -----------------------------------------------------------------------
+    // 3. GESTÃO DE PR (3 CASES)
+    // -----------------------------------------------------------------------
+    {
+      id: "pr-crise-tech-cybersecurity",
+      title: "Gestão de Incidente Crítico em Nuvem: Blindagem e Transparência",
+      client: "CloudShield Enterprise (Confidencial)",
+      category: "Gestão de PR",
+      shortDescription: "Comunicação de crise e war room de 72 horas após incidente cibernético de alta visibilidade.",
+      coverImage: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+          caption: "War room executivo coordenando o alinhamento com porta-vozes jurídicos e imprensa especializada."
+        }
+      ],
+      context: "Empresa de segurança em nuvem com 2 milhões de usuários detectou tentativa sofisticada de invasão em um fim de semana.",
+      challenge: "Manter a confiança do mercado, mitigar especulações da imprensa sensacionalista e cumprir rigorosamente as normas da LGPD.",
+      diagnosis: "A equipe técnica queria 'esperar 5 dias para ter o laudo final', enquanto rumores já começavam a circular em fóruns no exterior.",
+      reasoning: "Em crises de tecnologia, quem controla o primeiro relato define se o evento será interpretado como 'negligência' ou 'resposta profissional a um ataque sofisticado'.",
+      strategy: "Adotar postura de 'Transparência Radialmente Responsável': boletins técnicos a cada 6 horas e contato proativo com repórteres de tecnologia.",
+      execution: "Criação de war room 24/7, redação de comunicados em português e inglês alinhados ao jurídico, entrevistas exclusivas concedidas pelo CTO.",
+      impact: "Zero cancelamentos de contratos empresariais no trimestre; cobertura de imprensa destacou a 'postura exemplar e transparente da companhia'.",
+      learnings: "Não esconda a tempestade: mostre aos seus passageiros que o comandante está com as mãos firmes no manche e os instrumentos operando com precisão.",
+      tags: ["Gestão de Crise", "Cibersegurança", "LGPD", "War Room", "Relações com a Mídia"]
+    },
+    {
+      id: "pr-ipo-mercado-capitais",
+      title: "Narrativa Institucional para Estreia na B3: Do Roadshow ao Noticiário",
+      client: "Varejo & Tech S.A.",
+      category: "Gestão de PR",
+      shortDescription: "Estratégia completa de relações públicas e preparação de executivos para abertura de capital na bolsa.",
+      coverImage: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_pr_crisis_boardroom_1791888388912.jpg",
+          caption: "Simulação de coletiva de imprensa e ensaio de porta-vozes antes do toque de campainha na bolsa."
+        }
+      ],
+      context: "Varejista regional com forte esteira de e-commerce preparando oferta pública inicial de ações (IPO) na bolsa de valores brasileira.",
+      challenge: "Provar para a imprensa de negócios (Valor Econômico, Brazil Journal, Bloomberg) que a empresa era uma plataforma de dados com margens crescentes.",
+      diagnosis: "O mercado estava cético em relação a empresas de consumo; as perguntas dos analistas seriam implacáveis sobre queima de caixa.",
+      reasoning: "A história contada aos analistas financeiros precisa bater 100% com o que a liderança declara publicamente nos jornais.",
+      strategy: "Treinamento intensivo de porta-vozes para o 'Período de Silêncio', confecção do press kit de referência e relacionamento com colunistas.",
+      execution: "Media training com 5 diretores, produção de vídeo manifesto exibido na cerimônia de abertura e cobertura fotográfica e de imprensa em tempo real.",
+      impact: "Demanda de investidores superou a oferta em 3,4 vezes; mais de 70 inserções positivas nos principais cadernos de economia do país no dia da listagem.",
+      learnings: "O valuation de uma empresa pública é uma função direta da convicção que o mercado tem em relação ao futuro desenhado pela liderança.",
+      tags: ["IPO", "Mercado de Capitais", "Media Training", "Finanças", "Governança"]
+    },
+    {
+      id: "pr-lancamento-ia-multinacional",
+      title: "Lançamento de Solução de IA para a América Latina: Hegemonia de Pautas",
+      client: "Tech Titan LatAm",
+      category: "Gestão de PR",
+      shortDescription: "Plano de relações públicas para o anúncio de data centers e novos modelos de IA no Brasil.",
+      coverImage: "/assets/images/project_branding_case_1791888388544.jpg",
+      featuredMedia: [
+        {
+          type: "image",
+          url: "/assets/images/project_branding_case_1791888388544.jpg",
+          caption: "Cobertura de capa e desdobramentos de imprensa sobre o investimento bilionário na infraestrutura regional."
+        }
+      ],
+      context: "Multinacional de tecnologia anunciando investimentos de R$ 1,5 bilhão em infraestrutura de inteligência artificial soberana no Brasil.",
+      challenge: "Transformar um anúncio técnico de infraestrutura em uma pauta nacional sobre geração de empregos qualificados e futuro econômico do país.",
+      diagnosis: "A imprensa costuma ver anúncios de multinacionais como 'releases promocionais' frios se não houver um gancho humano e econômico relevante.",
+      reasoning: "A pauta precisava conversar tanto com o colunista de economia quanto com o repórter de tecnologia de São Paulo e o caderno de negócios.",
+      strategy: "Estratégia de embargos escalonados: furo exclusivo ao principal jornal do país, seguido de coletiva de imprensa interativa para 60 veículos.",
+      execution: "Mapeamento minucioso de 120 jornalistas, preparação do porta-voz global com tradução simultânea e produção de infográficos técnicos.",
+      impact: "100% dos principais jornais e portais de notícias cobriram o anúncio na página principal; pauta repercutiu em telejornais em horário nobre.",
+      learnings: "Grandes anúncios exigem orquestração cirúrgica de tempo: o timing do embargo e o respeito aos prazos dos repórteres garantem a qualidade.",
+      tags: ["Relações Públicas", "Lançamento", "Investimento Estrangeiro", "Tech Titan", "Infraestrutura"]
+    }
+  ]
+};
+
+// Storage Key for live in-app editing persistence
+export const STORAGE_KEY = "saullo_portfolio_data_v2";
+
+export function loadPortfolioData(): PortfolioData {
+  if (typeof window === "undefined") return initialPortfolioContent;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return initialPortfolioContent;
+    // Replace any legacy /src/assets/images/ with /assets/images/
+    const sanitizedRaw = raw.replace(/\/src\/assets\/images\//g, "/assets/images/");
+    const parsed = JSON.parse(sanitizedRaw);
+    if (parsed.uiTexts?.services?.title === "Sete disciplinas integradas de impacto") {
+      parsed.uiTexts.services.title = "O que o Saullo Rosa pode fazer por mim?";
+    }
+    return {
+      ...initialPortfolioContent,
+      ...parsed,
+      personalInfo: {
+        ...initialPortfolioContent.personalInfo,
+        ...(parsed.personalInfo || {}),
+        photoUrl: parsed.personalInfo?.photoUrl || initialPortfolioContent.personalInfo.photoUrl,
+        headerBannerUrl: parsed.personalInfo?.headerBannerUrl || initialPortfolioContent.personalInfo.headerBannerUrl,
+      },
+      uiTexts: {
+        ...initialPortfolioContent.uiTexts,
+        ...(parsed.uiTexts || {}),
+      },
+      projects: Array.isArray(parsed.projects) && parsed.projects.length > 0
+        ? parsed.projects
+        : initialPortfolioContent.projects,
+    };
+  } catch (e) {
+    console.warn("Erro ao carregar dados salvos do portfolio:", e);
+    return initialPortfolioContent;
+  }
+}
+
+export function savePortfolioData(data: PortfolioData): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.error("Erro ao salvar dados do portfolio:", e);
+  }
+}
+
+/**
+ * Carrega os dados atualizados salvos no servidor (/api/portfolio)
+ * permitindo que qualquer visitante em qualquer dispositivo veja as alterações do dono.
+ */
+export async function fetchServerPortfolioData(): Promise<PortfolioData | null> {
+  if (typeof window === "undefined") return null;
+  try {
+    const res = await fetch("/api/portfolio");
+    if (!res.ok) return null;
+    const remoteData = await res.json();
+    if (remoteData && typeof remoteData === "object" && remoteData.personalInfo) {
+      savePortfolioData(remoteData);
+      return remoteData as PortfolioData;
+    }
+    return null;
+  } catch (err) {
+    // Modo offline ou fallback silencioso
+    return null;
+  }
+}
+
+/**
+ * Salva os dados tanto no localStorage quanto no servidor para que qualquer visitante acesse.
+ */
+export async function saveServerPortfolioData(data: PortfolioData): Promise<boolean> {
+  savePortfolioData(data);
+  if (typeof window === "undefined") return true;
+  try {
+    const res = await fetch("/api/portfolio", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return res.ok;
+  } catch (err) {
+    console.error("Falha ao sincronizar dados com o servidor:", err);
+    return false;
+  }
+}
+
+export const portfolioContent: PortfolioData = initialPortfolioContent;

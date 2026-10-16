@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --pop-purple: #5425D8;
+    --pop-violet: #8557FF;
+    --pop-pink: #FF5CBA;
+    --pop-blue: #326BFF;
+    --pop-light-blue: #EAF0FF;
+    --pop-warm-white: #FAF8FF;
+    --pop-dark: #17151D;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF8FF;
+    color: #17151D;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Custom editorial pop-tech scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF8FF;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D2EF;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8557FF;
+}
