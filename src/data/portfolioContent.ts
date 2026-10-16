@@ -557,15 +557,40 @@ export async function fetchServerPortfolioData(): Promise<PortfolioData | null> 
   if (typeof window === "undefined") return null;
   try {
     const res = await fetch("/api/portfolio");
-    if (!res.ok) return null;
-    const remoteData = await res.json();
-    if (remoteData && typeof remoteData === "object" && remoteData.personalInfo) {
-      savePortfolioData(remoteData);
-      return remoteData as PortfolioData;
+    const contentType = res.headers.get("content-type");
+    
+    // If /api/portfolio succeeded and returned JSON
+    if (res.ok && contentType && contentType.includes("application/json")) {
+      const remoteData = await res.json();
+      if (remoteData && typeof remoteData === "object" && remoteData.personalInfo) {
+        savePortfolioData(remoteData);
+        return remoteData as PortfolioData;
+      }
+    }
+
+    // Static fallback for Vercel, Netlify, or GitHub Pages
+    const staticRes = await fetch("/savedPortfolio.json");
+    if (staticRes.ok) {
+      const staticData = await staticRes.json();
+      if (staticData && typeof staticData === "object" && staticData.personalInfo) {
+        savePortfolioData(staticData);
+        return staticData as PortfolioData;
+      }
     }
     return null;
   } catch (err) {
-    // Modo offline ou fallback silencioso
+    try {
+      const staticRes = await fetch("/savedPortfolio.json");
+      if (staticRes.ok) {
+        const staticData = await staticRes.json();
+        if (staticData && typeof staticData === "object" && staticData.personalInfo) {
+          savePortfolioData(staticData);
+          return staticData as PortfolioData;
+        }
+      }
+    } catch {
+      // Silent offline fallback
+    }
     return null;
   }
 }

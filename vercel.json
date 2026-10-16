@@ -5,6 +5,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/api/portfolio",
+      "destination": "/savedPortfolio.json"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

@@ -66,8 +66,52 @@ app.get('/api/portfolio', async (req, res) => {
 app.post('/api/portfolio', async (req, res) => {
   try {
     const fs = await import('fs');
-    await fs.promises.writeFile(savedPortfolioPath, JSON.stringify(req.body, null, 2), 'utf-8');
-    return res.json({ success: true });
+    let parsed = req.body;
+
+    const saveBase64 = (dataUri: string, targetRelPath: string) => {
+      if (!dataUri || !dataUri.startsWith('data:image/')) return dataUri;
+      const matches = dataUri.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
+      if (!matches) return dataUri;
+      const buffer = Buffer.from(matches[2], 'base64');
+      const publicPath = path.resolve('public', targetRelPath);
+      const srcPath = path.resolve('src', targetRelPath);
+      fs.mkdirSync(path.dirname(publicPath), { recursive: true });
+      fs.mkdirSync(path.dirname(srcPath), { recursive: true });
+      fs.writeFileSync(publicPath, buffer);
+      fs.writeFileSync(srcPath, buffer);
+      return '/' + targetRelPath.replace(/\\/g, '/');
+    };
+
+    if (parsed?.personalInfo?.photoUrl?.startsWith('data:')) {
+      parsed.personalInfo.photoUrl = saveBase64(parsed.personalInfo.photoUrl, 'assets/images/saullo_profile.webp');
+    }
+    if (parsed?.personalInfo?.headerBannerUrl?.startsWith('data:')) {
+      parsed.personalInfo.headerBannerUrl = saveBase64(parsed.personalInfo.headerBannerUrl, 'assets/images/saullo_header_banner.webp');
+    }
+    if (Array.isArray(parsed?.projects)) {
+      parsed.projects.forEach((proj: any, idx: number) => {
+        if (proj.coverImage?.startsWith('data:')) {
+          const extMatch = proj.coverImage.match(/^data:image\/([a-zA-Z0-9+]+);base64,/);
+          const ext = extMatch && extMatch[1] === 'jpeg' ? 'jpg' : (extMatch ? extMatch[1] : 'webp');
+          proj.coverImage = saveBase64(proj.coverImage, `assets/images/project_${proj.id || idx}_cover.${ext}`);
+        }
+        if (Array.isArray(proj.featuredMedia)) {
+          proj.featuredMedia.forEach((m: any, mi: number) => {
+            if (m.url?.startsWith('data:')) {
+              const extMatch = m.url.match(/^data:image\/([a-zA-Z0-9+]+);base64,/);
+              const ext = extMatch && extMatch[1] === 'jpeg' ? 'jpg' : (extMatch ? extMatch[1] : 'webp');
+              m.url = saveBase64(m.url, `assets/images/project_${proj.id || idx}_media_${mi}.${ext}`);
+            }
+          });
+        }
+      });
+    }
+
+    await fs.promises.writeFile(savedPortfolioPath, JSON.stringify(parsed, null, 2), 'utf-8');
+    const publicFilePath = path.resolve('public', 'savedPortfolio.json');
+    await fs.promises.writeFile(publicFilePath, JSON.stringify(parsed, null, 2), 'utf-8');
+
+    return res.json({ success: true, data: parsed });
   } catch (err) {
     return res.status(500).json({ error: String(err) });
   }
