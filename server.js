@@ -22965,6 +22965,18 @@ app.post("/api/portfolio", async (req, res) => {
     await fs.promises.writeFile(savedPortfolioPath, JSON.stringify(parsed, null, 2), "utf-8");
     const publicFilePath = path.resolve("public", "savedPortfolio.json");
     await fs.promises.writeFile(publicFilePath, JSON.stringify(parsed, null, 2), "utf-8");
+    try {
+      const { exec } = await import("child_process");
+      exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main', (err, stdout, stderr) => {
+        if (err) {
+          console.log("[Git Auto-Sync] Notice:", stderr || err.message);
+        } else {
+          console.log("[Git Auto-Sync] Successfully pushed updates to GitHub");
+        }
+      });
+    } catch (gitErr) {
+      console.error("[Git Auto-Sync] Error:", gitErr);
+    }
     return res.json({ success: true, data: parsed });
   } catch (err) {
     return res.status(500).json({ error: String(err) });
