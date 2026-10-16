@@ -92,6 +92,20 @@ function portfolioApiPlugin(): Plugin {
                 const publicFilePath = path.resolve('public', 'savedPortfolio.json');
                 await fs.promises.writeFile(publicFilePath, JSON.stringify(parsed, null, 2), 'utf-8');
 
+                // Auto-sync with GitHub repositories in background
+                try {
+                  const { exec } = await import('child_process');
+                  exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main', (err, stdout, stderr) => {
+                    if (err) {
+                      console.log('[Git Auto-Sync] Notice:', stderr || err.message);
+                    } else {
+                      console.log('[Git Auto-Sync] Successfully pushed updates to GitHub');
+                    }
+                  });
+                } catch (gitErr) {
+                  console.error('[Git Auto-Sync] Error:', gitErr);
+                }
+
                 res.setHeader('Content-Type', 'application/json');
                 return res.end(JSON.stringify({ success: true, data: parsed }));
               } catch (err) {
