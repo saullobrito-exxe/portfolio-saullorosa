@@ -22967,7 +22967,7 @@ app.post("/api/portfolio", async (req, res) => {
     await fs.promises.writeFile(publicFilePath, JSON.stringify(parsed, null, 2), "utf-8");
     try {
       const { exec } = await import("child_process");
-      exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main', (err, stdout, stderr) => {
+      exec('git add . && git commit -m "update: portfolio content and photos" && git push origin main --force', (err, stdout, stderr) => {
         if (err) {
           console.log("[Git Auto-Sync] Notice:", stderr || err.message);
         } else {
